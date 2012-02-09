@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
+  <App xmlns="" ProductID="{e77769ec-599e-493e-afa0-7157759805aa}" Title="Thirukkural" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Thirukkural author" Description="Sample description" Publisher="Thirukkural">
+    <IconPath IsRelative="true" IsResource="false">Images\ico.png</IconPath>
+    <Capabilities/>
+    <Tasks>
+      <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+    </Tasks>
+    <Tokens>
+      <PrimaryToken TokenID="ThirukkuralToken" TaskName="_default">
+        <TemplateType5>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Images\onep.png</BackgroundImageURI>
+          <Count>0</Count>
+          <Title>Thirukkural</Title>
+        </TemplateType5>
+      </PrimaryToken>
+    </Tokens>
+  </App>
+</Deployment>

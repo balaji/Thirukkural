@@ -1,0 +1,101 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Thirukkural.Detail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"     
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True">
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot x:Name="rootPivot">
+            <controls:Pivot.Title>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="rootPivotTitle" Grid.Row="0" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha"/>
+                    <TextBlock x:Name="rootPivotTitleEnglish" Margin="0 0 0 7" TextWrapping="Wrap" Grid.Row="1"/>
+                </Grid>
+            </controls:Pivot.Title>
+            <controls:Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="குறள் - " FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" FontSize="46"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Id}" FontSize="46"/>
+                    </Grid>
+                </DataTemplate>
+            </controls:Pivot.HeaderTemplate>
+            <controls:Pivot.ItemTemplate>
+                <DataTemplate>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <TextBlock Text="{Binding TamilKural}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Line MinHeight="40"></Line>
+                            <TextBlock Visibility="{Binding Visibility}" Text="English Explanation:" FontSize="20" TextWrapping="Wrap"/>
+                            <Border Visibility="{Binding Visibility}" BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 7 0 5"/>
+                            <TextBlock Visibility="{Binding Visibility}" Text="{Binding EnglishExplanation}" FontSize="20" TextWrapping="Wrap"/>
+                            <Line MinHeight="40" Visibility="{Binding Visibility}"></Line>
+                            <TextBlock Text="மு.வரததாசனார் உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
+                            <TextBlock Text="{Binding MuvaExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Line MinHeight="40"></Line>
+                            <TextBlock Text="கலைஞர் உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
+                            <TextBlock Text="{Binding KalignarExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Line MinHeight="40"></Line>
+                            <TextBlock Text="சாலமன் பாப்பையா உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
+                            <TextBlock Text="{Binding SolomonExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                            <Line MinHeight="40"></Line>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DataTemplate>
+            </controls:Pivot.ItemTemplate>
+        </controls:Pivot>
+        <toolkit:PerformanceProgressBar VerticalAlignment="Top" x:Name="_performanceBar"/>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True">
+            <shell:ApplicationBarIconButton IconUri="Images/a.png" Text="index" Click="Chapters_Click" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
