@@ -82,6 +82,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True">
             <shell:ApplicationBarIconButton IconUri="Images/a.png" Text="index" Click="Chapters_Click" />
+            <shell:ApplicationBarIconButton IconUri="Images/fav.png" Text="favourites" Click="ApplicationBarIconButton_Click" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click"/>
             </shell:ApplicationBar.MenuItems>

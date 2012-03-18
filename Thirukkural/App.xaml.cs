@@ -42,6 +42,18 @@ namespace Thirukkural {
                 Settings.ShowEnglishText = value;
             }
         }
+
+        private static LocalDatabase localDb;
+        public static LocalDatabase LocalDB {
+            get {
+                if (localDb == null) {
+                    localDb = new LocalDatabase(LocalDatabase.DBConnectionString);
+                }
+                return localDb;
+            }
+        }
+
+
         private static ThirukkuralDataContext db;
         public static ThirukkuralDataContext DB {
             get {
@@ -63,6 +75,10 @@ namespace Thirukkural {
         /// Constructor for the Application object.
         /// </summary>
         public App() {
+
+            if (!LocalDB.DatabaseExists()) {
+                LocalDB.CreateDatabase();
+            }
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
             // Standard Silverlight initialization

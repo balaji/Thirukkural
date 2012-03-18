@@ -64,26 +64,48 @@
             <controls:Pivot.ItemTemplate>
                 <DataTemplate>
                     <ScrollViewer>
-                        <StackPanel>
-                            <TextBlock Text="{Binding TamilKural}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Line MinHeight="40"></Line>
-                            <TextBlock Visibility="{Binding Visibility}" Text="English Explanation:" FontSize="20" TextWrapping="Wrap"/>
-                            <Border Visibility="{Binding Visibility}" BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 7 0 5"/>
-                            <TextBlock Visibility="{Binding Visibility}" Text="{Binding EnglishExplanation}" FontSize="20" TextWrapping="Wrap"/>
-                            <Line MinHeight="40" Visibility="{Binding Visibility}"></Line>
-                            <TextBlock Text="மு.வரததாசனார் உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
-                            <TextBlock Text="{Binding MuvaExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Line MinHeight="40"></Line>
-                            <TextBlock Text="கலைஞர் உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
-                            <TextBlock Text="{Binding KalignarExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Line MinHeight="40"></Line>
-                            <TextBlock Text="சாலமன் பாப்பையா உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
-                            <TextBlock Text="{Binding SolomonExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
-                            <Line MinHeight="40"></Line>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0">
+                                <TextBlock Text="{Binding TamilKural}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Line MinHeight="40"></Line>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="{Binding EOrder}" Visibility="{Binding Visibility}">
+                                <TextBlock Text="English Explanation:" FontSize="20" TextWrapping="Wrap"/>
+                                <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 7 0 5"/>
+                                <TextBlock Text="{Binding EnglishExplanation}" FontSize="20" TextWrapping="Wrap"/>
+                                <Line MinHeight="40"></Line>
+                            </StackPanel>
+
+                            <StackPanel x:Name="muvaPanel" Grid.Row="{Binding MOrder}" Visibility="{Binding MVisibility}">
+                                <TextBlock Text="மு. வரதராசன் உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
+                                <TextBlock Text="{Binding MuvaExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Line MinHeight="40"></Line>
+                            </StackPanel>
+
+                            <StackPanel Name="kalignarPanel" Grid.Row="{Binding KOrder}" Visibility="{Binding KVisibility}">
+                                <TextBlock Text="கலைஞர் உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
+                                <TextBlock Text="{Binding KalignarExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Line MinHeight="40"></Line>
+                            </StackPanel>
+
+                            <StackPanel Name="solomonPanel" Grid.Row="{Binding SOrder}" Visibility="{Binding SVisibility}">
+                                <TextBlock Text="சாலமன் பாப்பையா உரை:" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Border BorderBrush="Gray" CornerRadius="2" BorderThickness="1" Margin="0 0 0 15"/>
+                                <TextBlock Text="{Binding SolomonExplanation}" FontFamily="/Thirukkural;component/Fonts/Fonts.zip#Latha" TextWrapping="Wrap"/>
+                                <Line MinHeight="40"></Line>
+                            </StackPanel>
+                        </Grid>
                     </ScrollViewer>
                 </DataTemplate>
             </controls:Pivot.ItemTemplate>
@@ -93,8 +115,12 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True">
             <shell:ApplicationBarIconButton IconUri="Images/a.png" Text="index" Click="Chapters_Click" />
+            <shell:ApplicationBarIconButton IconUri="Images/random.png" Text="random" Click="Random_Click" />
+            <shell:ApplicationBarIconButton IconUri="Images/add-fav.png" Text="add" Click="Favourite_Click" />
+            <shell:ApplicationBarIconButton IconUri="Images/remove-fav.png" Text="remove" Click="UnFavourite_Click" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="settings" Click="ApplicationBarMenuItem_Click"/>
+                <shell:ApplicationBarMenuItem Text="favourites" Click="ApplicationBarIconButton_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

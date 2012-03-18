@@ -19,7 +19,6 @@ namespace Thirukkural {
         private ProgressIndicator _performanceProgressBar;
         public MainPage() {
             InitializeComponent();
-            //Thirukkural.Content.ThirukkuralDataContext.Init();
             var items = (from paal in App.DB.Paals select paal);
             paals.ItemsSource = items;
         }
@@ -36,6 +35,15 @@ namespace Thirukkural {
                 p.Visibility = "Collapsed";
             }
             sectionTitle.Visibility = Visibility.Collapsed;
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e) {
+            base.OnNavigatedFrom(e);
+            ApplicationBar.IsVisible = false;
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e) {
+            ApplicationBar.IsVisible = true;
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e) {
@@ -69,6 +77,10 @@ namespace Thirukkural {
             if (_performanceProgressBar != null) {
                 _performanceProgressBar.IsIndeterminate = false;
             }
+        }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e) {
+            this.NavigationService.Navigate(new Uri("/Favourites.xaml", UriKind.Relative));
         }
     }
 }

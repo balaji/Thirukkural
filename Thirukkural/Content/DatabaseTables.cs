@@ -90,7 +90,7 @@ namespace Thirukkural.Content {
             get { return _name; }
             set { if (_name != value) { NotifyPropertyChanging("Name"); _name = value; NotifyPropertyChanged("Name"); } }
         }
-        
+
         [Column]
         private string _visibility;
         public string Visibility {
@@ -243,6 +243,31 @@ namespace Thirukkural.Content {
         public string Visibility {
             get { return _visibility; }
             set { if (_visibility != value) { NotifyPropertyChanging("Visibility"); _visibility = value; NotifyPropertyChanged("Visibility"); } }
+        }
+
+        private int eOrder = 1;
+        private int kOrder = 2;
+        private int mOrder = 3;
+        private int sOrder = 4;
+
+        public int EOrder {
+            get { return eOrder; }
+            set { if (eOrder != value) { NotifyPropertyChanging("EOrder"); eOrder = value; NotifyPropertyChanged("EOrder"); } }
+        }
+
+        public int KOrder {
+            get { return kOrder; }
+            set { if (kOrder != value) { NotifyPropertyChanging("KOrder"); kOrder = value; NotifyPropertyChanged("KOrder"); } }
+        }
+
+        public int MOrder {
+            get { return mOrder; }
+            set { if (mOrder != value) { NotifyPropertyChanging("MOrder"); mOrder = value; NotifyPropertyChanged("MOrder"); } }
+        }
+
+        public int SOrder {
+            get { return sOrder; }
+            set { if (sOrder != value) { NotifyPropertyChanging("SOrder"); sOrder = value; NotifyPropertyChanged("SOrder"); } }
         }
 
         [Column]

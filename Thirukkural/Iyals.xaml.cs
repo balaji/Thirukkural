@@ -70,6 +70,10 @@ namespace Thirukkural {
             NavigationService.Navigate(new Uri("/Chapters.xaml", UriKind.Relative));
         }
 
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e) {
+            this.NavigationService.Navigate(new Uri("/Favourites.xaml", UriKind.Relative));
+        }
+
         private void ApplicationBarMenuItem_Click(object sender, EventArgs e) {
             this.NavigationService.Navigate(new Uri("/Setting.xaml", UriKind.Relative));
         }

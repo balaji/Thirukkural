@@ -11,36 +11,24 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Thirukkural.Content;
 
 namespace Thirukkural {
-    public partial class Kurals : PhoneApplicationPage, IText {
+    public partial class Favourites : PhoneApplicationPage {
         private ProgressIndicator _performanceProgressBar;
-        public Kurals() {
+        public Favourites() {
             InitializeComponent();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e) {
             base.OnNavigatedTo(e);
-            string id = "";
-            if (NavigationContext.QueryString.TryGetValue("id", out id)) {
-                Adhiharam ad = (from adhiharam in App.DB.Adhiharams where adhiharam.Id == Int32.Parse(id) select adhiharam).ToArray<Adhiharam>()[0];
-                PageTitle.Text = ad.Id + ". " + ad.Name;
-                sectionTitle.Text = ad.EnglishText;
-                adhiharams.ItemsSource = ad.Kurals;
-            }
-            App.ToggleAppBarIcon(this);
+            var ids = App.LocalDB.Favourites.Select(fav => fav.ThirukkuralId).ToList();
+            var source = (ids.Count() > 0) ? App.DB.Kurals.Where(kural => ids.Contains(kural.Id)) : null;
+            favourites.ItemsSource = source;
             if (_performanceProgressBar != null) {
                 _performanceProgressBar.IsIndeterminate = false;
             }
         }
-        public void setEnglishText() {
-            sectionTitle.Visibility = Visibility.Visible;
-        }
 
-        public void clearEnglishText() {
-            sectionTitle.Visibility = Visibility.Collapsed;
-        }
         void TextBlock_Loaded(object sender, RoutedEventArgs e) {
             ((TextBlock)sender).Foreground = (Brush)Application.Current.Resources["PhoneContrastBackgroundBrush"];
         }
@@ -49,14 +37,22 @@ namespace Thirukkural {
             NavigationService.Navigate(new Uri("/Chapters.xaml", UriKind.Relative));
         }
 
-        private void ApplicationBarIconButton_Click(object sender, EventArgs e) {
-            this.NavigationService.Navigate(new Uri("/Favourites.xaml", UriKind.Relative));
+        private void applyBrush(UIElement element) {
+            if (element is TextBlock) {
+                ((TextBlock)element).Foreground = (Brush)Application.Current.Resources["PhoneAccentBrush"];
+            }
+
+            if (element is Grid) {
+                foreach (UIElement childElement in ((Grid)element).Children) {
+                    applyBrush(childElement);
+                }
+            }
         }
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e) {
             HyperlinkButton button = sender as HyperlinkButton;
             foreach (UIElement element in ((Grid)button.Content).Children) {
-                ((TextBlock)element).Foreground = (Brush)Application.Current.Resources["PhoneAccentBrush"];
+                applyBrush(element);
             }
             if (null == _performanceProgressBar) {
                 _performanceProgressBar = new ProgressIndicator();
@@ -64,7 +60,7 @@ namespace Thirukkural {
                 SystemTray.ProgressIndicator = _performanceProgressBar;
             }
             _performanceProgressBar.IsIndeterminate = true;
-            string adId = PageTitle.Text.Split('.')[0];
+            string adId = App.DB.Kurals.Where(kural => kural.Id == (int)button.Tag).Select(kural => kural.Adhiharam.Id).First().ToString();
             int index = (int)button.Tag % 10;
             this.NavigationService.Navigate(new Uri("/Detail.xaml?id=" + adId + "&kuralId=" + index, UriKind.Relative));
         }

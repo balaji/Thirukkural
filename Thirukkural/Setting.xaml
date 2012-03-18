@@ -6,14 +6,16 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"     
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"    
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True"
-    toolkit:TiltEffect.IsTiltEnabled="True">
+    toolkit:TiltEffect.IsTiltEnabled="True"
+    Loaded="PhoneApplicationPage_Loaded">
     <toolkit:TransitionService.NavigationInTransition>
         <toolkit:NavigationInTransition>
             <toolkit:NavigationInTransition.Backward>
@@ -51,10 +53,20 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <CheckBox x:Name="toggle" Checked="toggle_Checked" Unchecked="toggle_Unchecked">
+            <CheckBox x:Name="choice1" VerticalAlignment="Bottom" Checked="toggle1_Checked" Unchecked="toggle1_Unchecked">
                 <TextBlock Text="Show English Text" />
             </CheckBox>
+            <TextBlock Grid.Row="1" Text="Choose Display Order" Margin="0,25,0,5" HorizontalAlignment="Center"/>
+            <toolkit:ListPicker x:Name="first" Grid.Row="2"/>
+            <toolkit:ListPicker  x:Name="second" Grid.Row="3"/>
+            <toolkit:ListPicker x:Name="third" Grid.Row="4"/>
+            <toolkit:ListPicker  x:Name="fourth" Grid.Row="5"/>
         </Grid>
     </Grid>
 </phone:PhoneApplicationPage>

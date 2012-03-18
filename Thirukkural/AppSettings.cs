@@ -18,27 +18,20 @@ namespace Thirukkural {
         // The isolated storage key names of our settings
         const string showEnglishText = "showEnglish";
 
-        // The default value of our settings
-        const bool ShowEnglishTextDefault = true;
+        const string eOrder = "e";
+        const string mOrder = "m";
+        const string kOrder = "k";
+        const string sOrder = "s";
 
-        /// <summary>
-        /// Constructor that gets the application settings.
-        /// </summary>
+        const bool ShowEnglishTextDefault = true;      
+
         public AppSettings() {
             // Get the settings for this application.
             settings = IsolatedStorageSettings.ApplicationSettings;
         }
-
-        /// <summary>
-        /// Update a setting value for our application. If the setting does not
-        /// exist, then add the setting.
-        /// </summary>
-        /// <param name="Key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         public bool AddOrUpdateValue(string Key, Object value) {
             bool valueChanged = false;
-
             // If the key exists
             if (settings.Contains(Key)) {
                 // If the value has changed
@@ -56,14 +49,6 @@ namespace Thirukkural {
             return valueChanged;
         }
 
-        /// <summary>
-        /// Get the current value of the setting, or if it is not found, set the 
-        /// setting to the default setting.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
         public T GetValueOrDefault<T>(string Key, T defaultValue) {
             T value;
 
@@ -78,23 +63,60 @@ namespace Thirukkural {
             return value;
         }
 
-        /// <summary>
-        /// Save the settings.
-        /// </summary>
         public void Save() {
             settings.Save();
         }
 
-
-        /// <summary>
-        /// Property to get and set a CheckBox Setting Key.
-        /// </summary>
         public bool ShowEnglishText {
             get {
                 return GetValueOrDefault<bool>(showEnglishText, ShowEnglishTextDefault);
             }
             set {
                 if (AddOrUpdateValue(showEnglishText, value)) {
+                    Save();
+                }
+            }
+        }
+
+        public int EOrder {
+            get {
+                return GetValueOrDefault<int>(eOrder, 1);
+            }
+            set {
+                if (AddOrUpdateValue(eOrder, value)) {
+                    Save();
+                }
+            }
+        }
+
+        public int MOrder {
+            get {
+                return GetValueOrDefault<int>(mOrder, 2);
+            }
+            set {
+                if (AddOrUpdateValue(mOrder, value)) {
+                    Save();
+                }
+            }
+        }
+
+        public int KOrder {
+            get {
+                return GetValueOrDefault<int>(kOrder, 3);
+            }
+            set {
+                if (AddOrUpdateValue(kOrder, value)) {
+                    Save();
+                }
+            }
+        }
+
+        public int SOrder {
+            get {
+                return GetValueOrDefault<int>(sOrder, 4);
+            }
+            set {
+                if (AddOrUpdateValue(sOrder, value)) {
                     Save();
                 }
             }
